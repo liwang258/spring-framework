@@ -165,6 +165,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * @see #scan(String...)
 	 * @see #refresh()
 	 */
+	@Override
 	public void register(Class<?>... annotatedClasses) {
 		Assert.notEmpty(annotatedClasses, "At least one annotated class must be specified");
 		this.reader.register(annotatedClasses);
@@ -179,6 +180,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * @see #register(Class...)
 	 * @see #refresh()
 	 */
+	@Override
 	public void scan(String... basePackages) {
 		Assert.notEmpty(basePackages, "At least one base package must be specified");
 		this.scanner.scan(basePackages);
