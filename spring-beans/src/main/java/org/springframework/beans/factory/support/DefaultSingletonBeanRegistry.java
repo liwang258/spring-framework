@@ -65,14 +65,14 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	private final Map<String, Object> singletonObjects = new ConcurrentHashMap<>(256);
 
 	/**
-	 * 三级缓存，key：beanName,value:该bean的动态代理对象,解决循环依赖
-	 * 主要用来产生类的动态代理对象 ObjectFactory.getObject方法
+	 * 三级缓存，key：beanName,value:该bean的动态代理对象解决循环依赖
+	 * 主要用来产生类的动态代理对象 ObjectFactory.getObject 方法
 	 */
 	private final Map<String, ObjectFactory<?>> singletonFactories = new HashMap<>(16);
 
 	/**
-	 * 二级缓存，存放的是bean实例，这个实例可能还没有经过属性赋值，主要是为了解决循环依赖的问题，
-	 * key:beanName,value:bean实例（这个bean实例也是动态代理后的对象，但是可能还没有属性赋值）
+	 * 二级缓存，存放的是bean实例,这个实例可能还没有经过属性赋值,主要是为了解决循环依赖的问题.
+	 * key:beanName,value:bean实例(这个bean实例也是动态代理后的对象，但是可能还没有属性赋值)
 	 */
 	private final Map<String, Object> earlySingletonObjects = new HashMap<>(16);
 
@@ -234,7 +234,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 				if (logger.isDebugEnabled()) {
 					logger.debug("Creating shared instance of singleton bean '" + beanName + "'");
 				}
-				/**
+				/*
 				 * 将beanName添加到 singletonsCurrentlyInCreation 这个Set中，标识这个beanName当前正在创建中
 				 */
 				beforeSingletonCreation(beanName);
@@ -244,7 +244,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 					this.suppressedExceptions = new LinkedHashSet<>();
 				}
 				try {
-					/**
+					/*
 					 * 从三级缓存中获取到这个beanName的FactoryBean,调用FactoryBean.getObject()方法创建一个被代理的实例，
 					 * 注意这个实例属性还没有赋值
 					 */
@@ -275,7 +275,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 					afterSingletonCreation(beanName);
 				}
 				if (newSingleton) {
-					/**
+					/*
 					 * beanName代理实例创建成功，做以下处理：
 					 * 1、将这个实例添加到一级缓存中（singletonObjects：即单例池）
 					 * 2、将这个beanName从三级缓存中（singletonFactories）移除掉，节约内存的同时避免反复创建代理对象
